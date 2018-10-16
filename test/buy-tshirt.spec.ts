@@ -1,6 +1,32 @@
-import { $, browser, by } from 'protractor';
+import { browser } from 'protractor';
+import {
+  ClothingThumbnailPage,
+  ProductAddedModalPage,
+  OrderSummaryPage,
+  SignInPage,
+  AddressPage,
+  ShippingPage,
+  PaymentPage,
+  PaymentSummaryPage,
+  CompletedOrderPage
+} from '../src/page';
+import { Clothes } from '../src/enums';
+import { UserSignInDataModel } from '../src/input-data-model';
 
 describe('Buy a t-shirt', () => {
+  const adminSignIn: UserSignInDataModel =
+    new UserSignInDataModel('aperdomobo@gmail.com', 'WorkshopProtractor');
+
+  const clothingThumbnailPage: ClothingThumbnailPage = new ClothingThumbnailPage();
+  const productAddedModalPage: ProductAddedModalPage = new ProductAddedModalPage();
+  const orderSummaryPage: OrderSummaryPage = new OrderSummaryPage();
+  const signInPage: SignInPage = new SignInPage();
+  const addressPage: AddressPage = new AddressPage();
+  const shippingPage: ShippingPage = new ShippingPage();
+  const paymentPage: PaymentPage = new PaymentPage();
+  const paymentSummaryPage: PaymentSummaryPage = new PaymentSummaryPage();
+  const completedOrderPage: CompletedOrderPage = new CompletedOrderPage();
+
   beforeEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
   });
@@ -9,50 +35,25 @@ describe('Buy a t-shirt', () => {
     await browser.get('http://automationpractice.com/');
     await(browser.sleep(5000));
 
-    const tShirt = browser.findElement(by.css('img[title="Faded Short Sleeve T-shirts"]'));
-    await browser.actions().mouseMove(tShirt).perform();
-    await(browser.sleep(3000));
+    await clothingThumbnailPage.addClothesToCart(Clothes.FADED_SHORT_SLEEVE_T_SHIRTS);
 
-    await $('[title="Add to cart"]').click();
-    await(browser.sleep(3000));
+    await productAddedModalPage.proceedToCheckout();
 
-    // click on proceed to checkout pop up
-    await $('[title="Proceed to checkout"]').click();
-    await(browser.sleep(3000));
+    await orderSummaryPage.proceedToCheckout();
 
-    // click on proceed to checkout
-    // tslint:disable-next-line
-    await $('#center_column > p.cart_navigation.clearfix > a.button.btn.btn-default.standard-checkout.button-medium > span').click();
-    await(browser.sleep(3000));
+    await signInPage.signIn(adminSignIn);
 
-    // fill credentials form
-    await $('#email').sendKeys('aperdomobo@gmail.com');
-    await $('#passwd').sendKeys('WorkshopProtractor');
-    await $('#SubmitLogin > span').click();
-    await(browser.sleep(3000));
+    await addressPage.proceedToCheckout();
 
-    // click on confirm order
-    await $('#center_column > form > p > button > span').click();
-    await(browser.sleep(3000));
+    await shippingPage.acceptTerms();
 
-    // accept terms
-    await $('#cgv').click();
-    await(browser.sleep(3000));
+    await shippingPage.proceedToCheckout();
 
-    // click on confirm order
-    await $('#form > p > button > span').click();
-    await(browser.sleep(3000));
+    await paymentPage.payBankWire();
 
-    // click on payment method
-    await $('#HOOK_PAYMENT > div:nth-child(1) > div > p > a').click();
-    await(browser.sleep(3000));
+    await paymentSummaryPage.confirmOrder();
 
-    // confirm order
-    await $('#cart_navigation > button > span').click();
-    await(browser.sleep(3000));
-
-    // assert final message
-    await expect($('#center_column > div > p > strong').getText())
+    await expect(completedOrderPage.getCompletedOrderText())
       .toBe('Your order on My Store is complete.');
   });
 });
