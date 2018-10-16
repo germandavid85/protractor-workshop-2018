@@ -7,30 +7,17 @@ describe('Buy a t-shirt', () => {
 
   it('then should be bought a t-shirt', async () => {
     await browser.get('http://automationpractice.com/');
-    await(browser.sleep(10000));
+    await(browser.sleep(5000));
 
-    // click on t-shirts
-    await $('#block_top_menu > ul > li:nth-child(3) > a').click();
+    const tShirt = browser.findElement(by.css('img[title="Faded Short Sleeve T-shirts"]'));
+    await browser.actions().mouseMove(tShirt).perform()
     await(browser.sleep(3000));
 
-    // open the first t-shirt pop up
-    await $('#center_column > ul > li > div > div.left-block > div > a.product_img_link > img')
-      .click();
+    await $('[title="Add to cart"]').click();
     await(browser.sleep(3000));
-
-    // pop up is inside a frame, so switch to the frame
-    const frame = browser.findElement(by.tagName('iframe'));
-    await browser.switchTo().frame(frame);
-
-    // click on add to cart
-    await $('#add_to_cart > button > span').click();
-    await(browser.sleep(3000));
-    await browser.switchTo().defaultContent();
 
     // click on proceed to checkout pop up
-    // tslint:disable-next-line
-    await $('#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a > span')
-      .click();
+    await $('[title="Proceed to checkout"]').click();
     await(browser.sleep(3000));
 
     // click on proceed to checkout
