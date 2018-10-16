@@ -7,8 +7,9 @@ export const config: Config = {
     browser.ignoreSynchronization = true;
   },
   framework: 'jasmine',
-  specs: [ '../test/spec.js' ],
+  specs: ['../test/**/*.spec.js'],
   SELENIUM_PROMISE_MANAGER: false,
+  getPageTimeout: 1000,
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {

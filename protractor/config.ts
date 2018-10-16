@@ -7,6 +7,7 @@ export const config: Config = {
     browser.ignoreSynchronization = true;
   },
   framework: 'jasmine',
-  specs: [ '../test/spec.js' ],
+  specs: ['../test/**/*.spec.js'],
+  getPageTimeout: 1000,
   SELENIUM_PROMISE_MANAGER: false
 };
