@@ -5,6 +5,7 @@ export const config: Config = {
   onPrepare: () => {
     reporter();
     browser.ignoreSynchronization = true;
+    browser.manage().timeouts().implicitlyWait(3000);
   },
   framework: 'jasmine',
   specs: ['../test/**/*.spec.js'],
