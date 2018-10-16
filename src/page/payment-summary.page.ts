@@ -1,4 +1,4 @@
-import { browser, $, ElementFinder } from 'protractor';
+import { $, ElementFinder, promise } from 'protractor';
 
 export class PaymentSummaryPage {
   private confirmOrderButton: ElementFinder;
@@ -7,9 +7,7 @@ export class PaymentSummaryPage {
     this.confirmOrderButton = $('#cart_navigation > button > span');
   }
 
-  public async confirmOrder(): Promise<void> {
-    await this.confirmOrderButton.click();
-
-    return await browser.sleep(3000);
+  public confirmOrder(): promise.Promise<void> {
+    return this.confirmOrderButton.click();
   }
 }

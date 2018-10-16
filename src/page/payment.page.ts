@@ -1,4 +1,4 @@
-import { browser, $, ElementFinder } from 'protractor';
+import { $, ElementFinder, promise } from 'protractor';
 
 export class PaymentPage {
   private payBankWireMenu: ElementFinder;
@@ -7,9 +7,7 @@ export class PaymentPage {
     this.payBankWireMenu = $('#HOOK_PAYMENT > div:nth-child(1) > div > p > a');
   }
 
-  public async payBankWire(): Promise<void> {
-    await this.payBankWireMenu.click();
-
-    return await browser.sleep(3000);
+  public payBankWire(): promise.Promise<void> {
+    return this.payBankWireMenu.click();
   }
 }

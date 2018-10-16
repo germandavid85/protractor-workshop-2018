@@ -1,4 +1,4 @@
-import { browser, $, ElementFinder } from 'protractor';
+import { $, ElementFinder, promise } from 'protractor';
 
 export class ShippingPage {
   private checkoutButton: ElementFinder;
@@ -9,15 +9,11 @@ export class ShippingPage {
     this.acceptTermsCheck = $('#cgv');
   }
 
-  public async acceptTerms(): Promise<void> {
-    await this.acceptTermsCheck.click();
-
-    return await browser.sleep(3000);
+  public acceptTerms(): promise.Promise<void> {
+    return this.acceptTermsCheck.click();
   }
 
-  public async proceedToCheckout(): Promise<void> {
-    await this.checkoutButton.click();
-
-    return await browser.sleep(3000);
+  public proceedToCheckout(): promise.Promise<void> {
+    return this.checkoutButton.click();
   }
 }

@@ -1,4 +1,4 @@
-import { browser, $, ElementFinder } from 'protractor';
+import { $, ElementFinder, promise } from 'protractor';
 
 export class OrderSummaryPage {
   private checkoutButton: ElementFinder;
@@ -8,9 +8,7 @@ export class OrderSummaryPage {
     this.checkoutButton = $('#center_column > p.cart_navigation.clearfix > a.button.btn.btn-default.standard-checkout.button-medium > span');
   }
 
-  public async proceedToCheckout(): Promise<void> {
-    await this.checkoutButton.click();
-
-    return await browser.sleep(3000);
+  public proceedToCheckout(): promise.Promise<void> {
+    return this.checkoutButton.click();
   }
 }
