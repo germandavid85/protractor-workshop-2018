@@ -9,11 +9,14 @@ export const config: Config = {
   framework: 'jasmine',
   specs: ['../test/**/*.spec.js'],
   SELENIUM_PROMISE_MANAGER: false,
-  getPageTimeout: 1000,
+  getPageTimeout: 30000,
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
       args: ['--headless', '--disable-gpu', '--user-agent', 'New User Agent']
     }
+  },
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 120000
   }
 };
