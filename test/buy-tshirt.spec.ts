@@ -33,7 +33,6 @@ describe('Buy a t-shirt', () => {
 
   it('then should be bought a t-shirt', async () => {
     await browser.get('http://automationpractice.com/');
-    await(browser.sleep(5000));
 
     await clothingThumbnailPage.addClothesToCart(Clothes.FADED_SHORT_SLEEVE_T_SHIRTS);
 
