@@ -10,7 +10,7 @@ describe('Buy a t-shirt', () => {
     await(browser.sleep(5000));
 
     const tShirt = browser.findElement(by.css('img[title="Faded Short Sleeve T-shirts"]'));
-    await browser.actions().mouseMove(tShirt).perform()
+    await browser.actions().mouseMove(tShirt).perform();
     await(browser.sleep(3000));
 
     await $('[title="Add to cart"]').click();
