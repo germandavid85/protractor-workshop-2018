@@ -1,16 +1,16 @@
-import { browser, $, ElementFinder, by } from 'protractor';
+import { browser, $$, ElementArrayFinder, by } from 'protractor';
 
 export class ClothingThumbnailPage {
-  private addToCartButton: ElementFinder;
+  private addToCartButtons: ElementArrayFinder;
 
   constructor () {
-    this.addToCartButton = $('[title="Add to cart"]');
+    this.addToCartButtons = $$('[title="Add to cart"]');
   }
 
   public async addClothesToCart(clothesName: string): Promise<void> {
-    const tShirt = browser.findElement(by.css(`img[title="${clothesName}"]`));
+    const tShirt = browser.findElement(by.css(`#homefeatured img[title="${clothesName}"]`));
     await browser.actions().mouseMove(tShirt).perform();
 
-    await this.addToCartButton.click();
+    return this.addToCartButtons.first().click();
   }
 }

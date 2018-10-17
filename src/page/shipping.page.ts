@@ -5,7 +5,7 @@ export class ShippingPage {
   private acceptTermsCheck: ElementFinder;
 
   constructor () {
-    this.checkoutButton = $('#form > p > button > span');
+    this.checkoutButton = $('[name="processCarrier"]');
     this.acceptTermsCheck = $('#cgv');
   }
 

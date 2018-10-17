@@ -4,7 +4,7 @@ export class AddressPage {
   private checkoutButton: ElementFinder;
 
   constructor () {
-    this.checkoutButton = $('#center_column > form > p > button > span');
+    this.checkoutButton = $('[name="processAddress"]');
   }
 
   public proceedToCheckout(): promise.Promise<void> {

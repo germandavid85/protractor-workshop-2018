@@ -4,8 +4,7 @@ export class OrderSummaryPage {
   private checkoutButton: ElementFinder;
 
   constructor () {
-    // tslint:disable-next-line
-    this.checkoutButton = $('#center_column > p.cart_navigation.clearfix > a.button.btn.btn-default.standard-checkout.button-medium > span');
+    this.checkoutButton = $('.cart_navigation [title="Proceed to checkout"]');
   }
 
   public proceedToCheckout(): promise.Promise<void> {
