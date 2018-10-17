@@ -27,32 +27,37 @@ describe('Buy a t-shirt', () => {
   const paymentSummaryPage: PaymentSummaryPage = new PaymentSummaryPage();
   const completedOrderPage: CompletedOrderPage = new CompletedOrderPage();
 
-  beforeEach(() => {
+  beforeAll(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
+    await browser.get('http://automationpractice.com/');
   });
 
-  it('then should be bought a t-shirt', async () => {
-    await browser.get('http://automationpractice.com/');
+  describe('when some clothing is added to the cart', () => {
+    beforeAll(async () => {
+      await clothingThumbnailPage.addClothesToCart(Clothes.FADED_SHORT_SLEEVE_T_SHIRTS);
+      await productAddedModalPage.proceedToCheckout();
+      await orderSummaryPage.proceedToCheckout();
+    });
 
-    await clothingThumbnailPage.addClothesToCart(Clothes.FADED_SHORT_SLEEVE_T_SHIRTS);
+    describe('and a user signs in to proceed with the checkout', () => {
+      beforeAll(async () => {
+        await signInPage.signIn(adminSignIn);
+      });
 
-    await productAddedModalPage.proceedToCheckout();
+      describe('and the user completes the checkout process', () => {
+        beforeAll(async () => {
+          await addressPage.proceedToCheckout();
+          await shippingPage.acceptTerms();
+          await shippingPage.proceedToCheckout();
+          await paymentPage.payBankWire();
+          await paymentSummaryPage.confirmOrder();
+        });
 
-    await orderSummaryPage.proceedToCheckout();
-
-    await signInPage.signIn(adminSignIn);
-
-    await addressPage.proceedToCheckout();
-
-    await shippingPage.acceptTerms();
-
-    await shippingPage.proceedToCheckout();
-
-    await paymentPage.payBankWire();
-
-    await paymentSummaryPage.confirmOrder();
-
-    await expect(completedOrderPage.getCompletedOrderText())
-      .toBe('Your order on My Store is complete.');
+        it('the it should finish the buy successfully', async () => {
+          await expect(completedOrderPage.getCompletedOrderText())
+            .toBe('Your order on My Store is complete.');
+        });
+      });
+    });
   });
 });
