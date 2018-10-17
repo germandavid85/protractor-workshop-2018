@@ -12,7 +12,5 @@ export class ClothingThumbnailPage {
     await browser.actions().mouseMove(tShirt).perform();
 
     await this.addToCartButton.click();
-
-    return browser.sleep(3000);
   }
 }
