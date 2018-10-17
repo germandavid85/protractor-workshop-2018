@@ -9,7 +9,7 @@ export class SignInPage {
   constructor () {
     this.emailInput = $('#email');
     this.passwordInput = $('#passwd');
-    this.submitButton = $('#SubmitLogin > span');
+    this.submitButton = $('#SubmitLogin');
   }
 
   public async signIn(useSignInDataModel: UserSignInDataModel): Promise<void> {
