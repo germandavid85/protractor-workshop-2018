@@ -116,3 +116,6 @@ typings/
 
 # Typescript
 dist
+
+# reporters
+awesome-report
