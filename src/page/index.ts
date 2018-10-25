@@ -7,3 +7,4 @@ export { ShippingPage } from './shipping.page';
 export { PaymentPage } from './payment.page';
 export { PaymentSummaryPage } from './payment-summary.page';
 export { CompletedOrderPage } from './completed-order.page';
+export { PersonalInformationPage } from './personal-information.page';
