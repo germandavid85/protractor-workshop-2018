@@ -32,7 +32,7 @@
     "protractor": "^5.4.1"
   },
   "devDependencies": {
-    "@types/jasminewd2": "2.0.5",
+    "@types/jasminewd2": "2.0.8",
     "jasmine-awesome-report": "0.0.3",
     "jasmine-spec-reporter": "4.2.1",
     "tslint": "5.20.0",
